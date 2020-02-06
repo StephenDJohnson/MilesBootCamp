@@ -146,7 +146,7 @@ VALUES
 	('62 N. 5th Street','New York City','USA'),
 	('8876 Rising Sn Ave','Philadelphia','USA');
 
-INSERT INTO Employees (Name,TavernID,Pay,RoleID)
+INSERT INTO Employees (EmployeeName,TavernID,Pay,RoleID)
 VALUES 
 	('Bill Burr',1,20,1),
 	('Ralph Wigum',1,10,2),
@@ -154,7 +154,7 @@ VALUES
 	('McLovin',3,20,4),
 	('Luke Skywalker',5,23,3);
 
-INSERT INTO Roles (Name,Description)
+INSERT INTO Roles (RoleName,RoleDescription)
 VALUES 
 	('Bartender','Take care of patrons needs, including serving food and drink'),
 	('Cook','Cook food in kitchen. Lunch and Dinner'),
@@ -162,7 +162,7 @@ VALUES
 	('Bouncer','Take care of drunk knuckleheads'),
 	('DJ','Play cool music');
 
-INSERT INTO Services (Name,Description,StatusID,Cost,TavernID)
+INSERT INTO Services (ServiceName,ServiceDescription,StatusID,Cost,TavernID)
 VALUES 
 	('Dry Cleaning','A fancy way to clean your money....',1,50,1),
 	('Horse Bets','Get all the winners',1,20,3),
@@ -170,7 +170,7 @@ VALUES
 	('Tax Returns','When the line at H&R Block is too long',1,31,5),
 	('Screen Repair','We can fix your broken screens for some reason',2,79,4);
 
-INSERT INTO Statuses (Name)
+INSERT INTO Statuses (StatusName)
 VALUES 
 	('Active'),
 	('Inactive');
@@ -183,7 +183,7 @@ VALUES
 	(4,'Monty Burns',2020-04-04,1),
 	(5,'Clumsy Bob',2020-01-01,1);
 
-INSERT INTO Supplies (Name,Description,UnitOfMeasure,Cost)
+INSERT INTO Supplies (SupplyName,Description,UnitOfMeasure,Cost)
 VALUES 
 	('Daisy Cutter','IPA','Ounce',6),
 	('Stone Cutter','Belgian Wheat','Ounce',7),
