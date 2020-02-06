@@ -62,11 +62,7 @@ CREATE TABLE ServiceSales (
 	GuestName varchar(100),
 	DatePurchased date,
 	AmountPurchased int,
-	PRIMARY KEY (OrderID),
-	FOREIGN KEY (StatusID) REFERENCES Statuses(StatusID),
-	FOREIGN KEY (TavernID) REFERENCES Services(TavernID),
-	FOREIGN KEY (Cost) REFERENCES Services(Cost)
-
+	PRIMARY KEY (OrderID)
 );
 
 CREATE TABLE Statuses (
@@ -186,7 +182,7 @@ VALUES
 	(3,50,6868,2020-01-05,3),
 	(4,20,700,2020-01-06,5);
 
-INSERT INTO Inventory (TavernID, SupplyID,Count,DateUpdated)
+INSERT INTO Inventory (TavernID,SupplyID,Count,DateUpdated)
 VALUES 
 	(1,1,600,2020-01-01),
 	(1,2,400,2020-01-01),
@@ -215,6 +211,9 @@ ALTER TABLE TavernOrders ADD FOREIGN KEY (TavernID) REFERENCES Taverns(TavernID)
 ALTER TABLE TavernOrders ADD FOREIGN KEY (SupplyID) REFERENCES Supplies(SupplyID)
 ALTER TABLE Inventory ADD FOREIGN KEY (TavernID) REFERENCES Taverns(TavernID)
 ALTER TABLE Inventory ADD FOREIGN KEY (SupplyID) REFERENCES Supplies(SupplyID)
+ALTER TABLE ServicesSales ADD FOREIGN KEY (StatusID) REFERENCES Statuses(StatusID)
+ALTER TABLE ServicesSales ADD FOREIGN KEY (TavernID) REFERENCES Services(TavernID)
+ALTER TABLE ServicesSales ADD FOREIGN KEY (Cost) REFERENCES Services(Cost)
 	
 
 
