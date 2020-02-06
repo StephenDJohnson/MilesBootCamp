@@ -4,25 +4,20 @@ CREATE TABLE Taverns (
 	LocationID int,
 	Floors int,
 	OwnerID int,
-	PRIMARY KEY (TavernID),
-	FOREIGN KEY (LocationID) REFERENCES Locations(LocationID),
-	FOREIGN KEY (OwnerID) REFERENCES Owners(OwnerID)
+	PRIMARY KEY (TavernID)
 );
 
 CREATE TABLE Rats (
 	RatID int IDENTITY(1,1),
 	RatName varchar(100),
 	TavernID int,
-	PRIMARY KEY (RatID),
-	FOREIGN KEY (TavernID) REFERENCES Taverns(TavernID)
+	PRIMARY KEY (RatID)
 );
 
 CREATE TABLE Owners (
 	OwnerID int IDENTITY(1,1),
 	OwnerName varchar(100),
-	LocationID int,
-	PRIMARY KEY (OwnerID),
-	FOREIGN KEY (LocationID) REFERENCES Locations(LocationID),
+	PRIMARY KEY (OwnerID)
 );
 
 CREATE TABLE Locations (
@@ -39,9 +34,7 @@ CREATE TABLE Employees (
 	TavernID int,
 	Pay int,
 	RoleID int,
-	PRIMARY KEY (EmployeeID),
-	FOREIGN KEY (RoleID) REFERENCES Roles(RoleID),
-	FOREIGN KEY (TavernID) REFERENCES Taverns(TavernID)
+	PRIMARY KEY (EmployeeID)
 );
 
 CREATE TABLE Roles (
@@ -58,9 +51,7 @@ CREATE TABLE Services (
 	StatusID int,
 	Cost int,
 	TavernID int
-	PRIMARY KEY (ServiceID),
-	FOREIGN KEY (StatusID) REFERENCES Statuses(StatusID),
-	FOREIGN KEY (TavernID) REFERENCES Taverns(TavernID)
+	PRIMARY KEY (ServiceID)
 );
 
 CREATE TABLE ServiceSales (
@@ -100,18 +91,14 @@ CREATE TABLE TavernOrders (
 	Cost int,
 	TavernID int,
 	DateRcvd date,
-	PRIMARY KEY (OrderID),
-	FOREIGN KEY (TavernID) REFERENCES Taverns(TavernID),
-	FOREIGN KEY (SupplyID) REFERENCES Supplies(SupplyID)
+	PRIMARY KEY (OrderID)
 );
 
 CREATE TABLE Inventory (
 	TavernID int,
 	SupplyID int,
 	Count int,
-	DateUpdated date,
-	FOREIGN KEY (TavernID) REFERENCES Taverns(TavernID),
-	FOREIGN KEY (SupplyID) REFERENCES Supplies(SupplyID)
+	DateUpdated date
 );
 
 INSERT INTO Taverns (TavernName,LocationID,Floors,OwnerID)
@@ -183,7 +170,7 @@ VALUES
 	(4,'Monty Burns',2020-04-04,1),
 	(5,'Clumsy Bob',2020-01-01,1);
 
-INSERT INTO Supplies (SupplyName,Description,UnitOfMeasure,Cost)
+INSERT INTO Supplies (SupplyName,SupplyDescription,UnitOfMeasure,Cost)
 VALUES 
 	('Daisy Cutter','IPA','Ounce',6),
 	('Stone Cutter','Belgian Wheat','Ounce',7),
@@ -217,9 +204,17 @@ VALUES
 	(3,4,1200,2020-01-01),
 	(3,5,300,2020-01-01);
 
-
-
-
+ALTER TABLE Taverns ADD FOREIGN KEY (LocationID) REFERENCES Locations(LocationID)
+ALTER TABLE Taverns ADD FOREIGN KEY (OwnerID) REFERENCES Owners(OwnerID)
+ALTER TABLE Rats ADD FOREIGN KEY (TavernID) REFERENCES Taverns(TavernID)
+ALTER TABLE Employees ADD FOREIGN KEY (RoleID) REFERENCES Roles(RoleID)
+ALTER TABLE Employees ADD FOREIGN KEY (TavernID) REFERENCES Taverns(TavernID)
+ALTER TABLE Services ADD FOREIGN KEY (StatusID) REFERENCES Statuses(StatusID)
+ALTER TABLE Services ADD FOREIGN KEY (TavernID) REFERENCES Taverns(TavernID)
+ALTER TABLE TavernOrders ADD FOREIGN KEY (TavernID) REFERENCES Taverns(TavernID)
+ALTER TABLE TavernOrders ADD FOREIGN KEY (SupplyID) REFERENCES Supplies(SupplyID)
+ALTER TABLE Inventory ADD FOREIGN KEY (TavernID) REFERENCES Taverns(TavernID)
+ALTER TABLE Inventory ADD FOREIGN KEY (SupplyID) REFERENCES Supplies(SupplyID)
 	
 
 
