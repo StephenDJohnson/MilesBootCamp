@@ -35,7 +35,7 @@ CREATE TABLE Locations (
 
 CREATE TABLE Employees (
 	EmployeeID int IDENTITY(1,1),
-	Name varchar(100),
+	EmployeeName varchar(100),
 	TavernID int,
 	Pay int,
 	RoleID int,
@@ -46,15 +46,15 @@ CREATE TABLE Employees (
 
 CREATE TABLE Roles (
 	RoleID int IDENTITY(1,1),
-	Name varchar(100),
-	Description varchar(250),
+	RoleName varchar(100),
+	RoleDescription varchar(250),
 	PRIMARY KEY (RoleID)
 );
 
 CREATE TABLE Services (
 	ServiceID int IDENTITY(1,1),
-	Name varchar(100),
-	Description varchar(250),
+	ServiceName varchar(100),
+	ServiceDescription varchar(250),
 	StatusID int,
 	Cost int,
 	TavernID int
@@ -74,7 +74,7 @@ CREATE TABLE ServiceSales (
 	PRIMARY KEY (OrderID),
 	FOREIGN KEY (StatusID) REFERENCES Statuses(StatusID),
 	FOREIGN KEY (TavernID) REFERENCES Services(TavernID),
-	FOREIGN KEY (Cost) REFERENCES Services(Cost),
+	FOREIGN KEY (Cost) REFERENCES Services(Cost)
 
 );
 
