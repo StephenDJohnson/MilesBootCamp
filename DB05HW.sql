@@ -71,4 +71,36 @@ RETURN
     WHERE RoomCost BETWEEN @min AND @max
 );
 	--QUERY USING ABOVE FUNCTION
-Select * From dbo.RoomR(75, 100)  
+Select * From dbo.RoomR(30, 100) 
+
+--Store Procedure to Take Results of RoomR function and 
+--creating a new room in a different tavern at 1 penny less
+IF OBJECT_ID (N'dbo.CreateRoom', N'FN') IS NOT NULL  
+    DROP PROCEDURE CreateRoom; 
+GO
+CREATE PROCEDURE dbo.CreateRoom
+@cost int = NULL,
+@TavernName varchar(50)= 'Tavern',
+@tavern int = NULL,
+@newTavern int = NULL
+AS
+SET @cost = (Select MIN (RoomCost) From dbo.RoomR(30, 100));
+SET @TavernName = (SELECT Top 1 TavernName From dbo.RoomR(30, 100) as RoomTable
+	WHERE RoomCost = (
+        SELECT 
+            MIN(RoomCost)
+        FROM
+            dbo.RoomR(30, 100)));
+SET @tavern = (Select TavernID FROM Taverns Where TavernName = @TavernName);
+If (@tavern = (Select COUNT(*) From Taverns))
+			BEGIN
+			SET @newTavern = (@tavern - (@tavern - 1));
+			END   
+			ELSE 
+			BEGIN 
+			SET @newTavern = (@tavern + 1);
+			END 
+INSERT INTO ROOMS (RoomCost, TavernID)
+--Used -1 below instead of -0.01 since I did not have RoomCost set up as Decimal
+VALUES ((@cost-1), @newTavern)
+GO
